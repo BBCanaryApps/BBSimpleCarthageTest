@@ -18,7 +18,7 @@ class ArticleListViewController: UIViewController, UITableViewDataSource {
     }
 
     func getArticles() {
-        Alamofire.request(.GET, "https://qiita.com/api/v2/items")
+        Alamofire.request("https://qiita.com/api/v2/items", method: .get)
             .responseJSON { response in
                 guard let object = response.result.value else {
                     return
@@ -35,12 +35,12 @@ class ArticleListViewController: UIViewController, UITableViewDataSource {
         }
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return articles.count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "cell")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         let article = articles[indexPath.row]
         cell.textLabel?.text = article["title"]!
         cell.detailTextLabel?.text = article["userId"]!
